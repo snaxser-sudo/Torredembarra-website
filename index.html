@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Торредембарра - Santa Rosalia, море, магазины и карта города</title>
+    <meta
+      name="description"
+      content="Живой мультиязычный гид по Торредембарре: Santa Rosalia, флаг города, магазины, кафе, рынки, достопримечательности, праздники и карта."
+    />
+    <meta name="theme-color" content="#10273d" />
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/c/c0/Escut_de_Torredembarra.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script defer src="torredembarrin-data.js"></script>
+    <script defer src="torredembarrin-translations.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержанию</a>
+
+    <header class="site-header" aria-label="Главная навигация">
+      <a class="brand" href="#top" aria-label="Torredembarra">
+        <img
+          class="brand-mark"
+          src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Escut_de_Torredembarra.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <span>Torredembarra</span>
+      </a>
+      <nav class="nav-links" aria-label="Разделы сайта">
+        <a href="#places" data-i18n="nav.places">Места</a>
+        <a href="#commerce" data-i18n="nav.commerce">Магазины</a>
+        <a href="#map" data-i18n="nav.map">Карта</a>
+        <a href="#culture" data-i18n="nav.culture">Культура</a>
+        <a href="#events" data-i18n="nav.events">События</a>
+        <a href="#sources" data-i18n="nav.sources">Ссылки</a>
+        <a href="#torredembarrin" data-i18n="nav.torredembarrin">Уголок Торредембаррина</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language">
+        <button type="button" class="is-active" data-lang="ru">RU</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="ca">CA</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero">
+        <div class="confetti-field" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="kicker" data-i18n="hero.kicker">Festa Major, Costa Daurada</p>
+          <h1 data-i18n="hero.title">Торредембарра</h1>
+          <p class="hero-copy" data-i18n="hero.copy">
+            Город с Santa Rosalia, рынком по вторникам, морскими кварталами, дюнами и старым центром.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#map" data-i18n="hero.primary">Открыть карту</a>
+            <a class="button button-secondary" href="#commerce" data-i18n="hero.secondary">Магазины и кофе</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Иллюстрация маяка и флаг Торредембарры" data-i18n-aria-label="hero.visualLabel">
+          <figure class="poster-card">
+            <img
+              src="assets/torredembarra-lighthouse-poster.png"
+              alt="Праздничная иллюстрация маяка Торредембарры"
+              data-i18n-alt="hero.posterAlt"
+            />
+          </figure>
+          <div class="flag-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Bandera_de_Torredembarra.svg" alt="Флаг Торредембарры" data-i18n-alt="hero.flagAlt" />
+            <a href="https://commons.wikimedia.org/wiki/File:Bandera_de_Torredembarra.svg" target="_blank" rel="noreferrer" data-i18n="hero.flagLink">флаг</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="city-strip" aria-label="Коротко о городе">
+        <div class="city-strip-item">
+          <strong data-i18n="strip.attractionsTitle">Достопримечательности</strong>
+          <span data-i18n="strip.attractionsText">Маяк, Старый Центр, Castell dels Icart, Torre de la Vila, Els Muntanyans, Римская Вилла.</span>
+        </div>
+        <div class="city-strip-item">
+          <strong data-i18n="strip.flagTitle">Флаг</strong>
+          <span data-i18n="strip.flagText">Белый замок на синем поле рядом с морской линией.</span>
+        </div>
+        <div class="city-strip-item">
+          <strong data-i18n="strip.saintTitle">Santa Rosalia</strong>
+          <span data-i18n="strip.saintText">Святая города. Festa Major в её честь проходит 22 августа - 7 сентября.</span>
+        </div>
+      </section>
+
+      <section id="places" class="section section-places">
+        <div class="section-head">
+          <h2 data-i18n="places.title">Город ярче открытки</h2>
+          <p data-i18n="places.copy">
+            Маяк важен, но рядом есть старый центр, Baix a Mar, дюны, римская вилла, башни и следы войны.
+          </p>
+        </div>
+        <div class="places-grid" id="placesGrid"></div>
+      </section>
+
+      <section id="commerce" class="section commerce-section">
+        <div class="section-head">
+          <h2 data-i18n="commerce.title">Магазины, рынок, кофе</h2>
+          <p data-i18n="commerce.copy">
+            Торредембарра не только пляж. За покупками и паузой идите в центр, на Antoni Roig, в Baix a Mar и на рынок по вторникам.
+          </p>
+        </div>
+        <div class="commerce-grid" id="commerceGrid"></div>
+      </section>
+
+      <section id="map" class="section map-section">
+        <div class="map-copy">
+          <h2 data-i18n="map.title">Маршрут по городу</h2>
+          <p data-i18n="map.copy">
+            От маяка к старому центру, Baix a Mar, пляжам и Muntanyans: выбирайте точку и двигайтесь дальше.
+          </p>
+          <div class="map-list" id="mapList" aria-label="Точки на карте"></div>
+        </div>
+        <div class="map-shell">
+          <div id="cityMap" aria-label="Интерактивная карта Торредембарры"></div>
+          <article class="map-detail" id="mapDetail" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section id="culture" class="section culture-section">
+        <div class="culture-intro">
+          <h2 data-i18n="culture.title">Праздники идут круглый год</h2>
+          <p data-i18n="culture.copy">
+            Santa Rosalia и El Quadre только вершина. Есть Sant Joan, Carnaval, Sant Sebastià, Nadal, Reis и местный seguici.
+          </p>
+        </div>
+        <div class="culture-grid" id="cultureGrid"></div>
+      </section>
+
+      <section class="section timeline-section">
+        <div class="section-head">
+          <h2 data-i18n="timeline.title">Слои, которые видно пешком</h2>
+          <p data-i18n="timeline.copy">
+            Римская вилла, средневековая Torre de la Vila, ренессансный замок, школы Roig, бункеры и маяк XXI века.
+          </p>
+        </div>
+        <ol class="timeline" id="timelineList"></ol>
+      </section>
+
+      <section id="events" class="section events-section">
+        <div class="events-heading">
+          <div>
+            <h2 data-i18n="events.title">Что сейчас происходит</h2>
+            <p data-i18n="events.copy">
+              Ближайшие события, городские новости и Viu La Torre в одном месте.
+            </p>
+          </div>
+          <div class="feed-status" id="feedStatus" aria-live="polite"></div>
+        </div>
+        <div class="events-grid" id="eventsGrid"></div>
+        <div class="source-actions">
+          <a class="button button-primary" href="https://torredembarra.cat/lajuntament/comunicacio/agenda" target="_blank" rel="noreferrer" data-i18n="events.cityLink">Официальная афиша</a>
+          <a class="button button-secondary" href="https://www.tdbactualitat.cat/" target="_blank" rel="noreferrer" data-i18n="events.newsLink">TDB Actualitat</a>
+          <a class="button button-secondary" href="https://play.google.com/store/apps/details?id=app.wetown.torredembarra&hl=es" target="_blank" rel="noreferrer" data-i18n="events.appLink">Viu La Torre</a>
+        </div>
+      </section>
+
+      <section id="sources" class="section sources-section">
+        <div class="section-head">
+          <h2 data-i18n="sources.title">Полезные ссылки</h2>
+          <p data-i18n="sources.copy">
+            Официальные страницы города, туризм, афиша, новости и приложение Viu La Torre.
+          </p>
+        </div>
+        <div class="sources-grid" id="sourcesGrid"></div>
+      </section>
+
+      <section id="torredembarrin" class="section torredembarrin-section">
+        <div class="torredembarrin-heading">
+          <div>
+            <h2 data-i18n="torredembarrin.title">Уголок Торредембаррина</h2>
+            <p data-i18n="torredembarrin.copy">
+              Текст и фото из публичных публикаций Telegram-канала @torredembarrin.
+            </p>
+          </div>
+          <div class="torredembarrin-panel">
+            <strong id="torredembarrinCount">15</strong>
+            <span data-i18n="torredembarrin.count">материалов</span>
+            <a href="https://t.me/torredembarrin" target="_blank" rel="noreferrer" data-i18n="torredembarrin.channel">Открыть канал</a>
+          </div>
+        </div>
+        <div class="torredembarrin-feed" id="torredembarrinFeed" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p data-i18n="footer.copy">
+        Торредембарра: город, где праздник, рынок, море и старые стены живут рядом.
+      </p>
+      <a href="#top" data-i18n="footer.top">Наверх</a>
+    </footer>
+  </body>
+</html>
