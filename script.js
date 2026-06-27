@@ -15,6 +15,10 @@ const SOURCES = {
     label: "Wikimedia Commons: Escut de Torredembarra",
     url: "https://commons.wikimedia.org/wiki/File:Escut_de_Torredembarra.svg",
   },
+  excursionismeTorredembarra: {
+    label: "Excursionisme Torredembarra",
+    url: "https://excursionismetorredembarra.com/",
+  },
   festes: {
     label: "Ajuntament: Festes",
     url: "https://www.torredembarra.cat/temes/festes",
@@ -1139,9 +1143,7 @@ const SEED_EVENTS = [
 ];
 
 const SOURCE_CARDS = [
-  { source: "santaRosaliaPoster", topic: { ru: "Плакат Santa Rosalia 25", en: "Santa Rosalia 25 poster", es: "Cartel Santa Rosalia 25", ca: "Cartell Santa Rosalia 25" } },
-  { source: "banderaTorredembarra", topic: { ru: "Флаг Торредембарры", en: "Torredembarra flag", es: "Bandera de Torredembarra", ca: "Bandera de Torredembarra" } },
-  { source: "escutTorredembarra", topic: { ru: "Герб Торредембарры", en: "Torredembarra coat of arms", es: "Escudo de Torredembarra", ca: "Escut de Torredembarra" } },
+  { source: "excursionismeTorredembarra", topic: { ru: "Excursionisme Torredembarra", en: "Excursionisme Torredembarra", es: "Excursionisme Torredembarra", ca: "Excursionisme Torredembarra" } },
   { source: "festes", topic: { ru: "Главные праздники города", en: "Main town festivals", es: "Fiestas principales", ca: "Festes principals" } },
   { source: "festaQuadre", topic: { ru: "Festa del Quadre", en: "Festa del Quadre", es: "Festa del Quadre", ca: "Festa del Quadre" } },
   { source: "santJoan", topic: { ru: "Sant Joan", en: "Sant Joan", es: "Sant Joan", ca: "Sant Joan" } },
