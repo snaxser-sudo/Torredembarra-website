@@ -1520,66 +1520,6 @@ async function tryLoadLiveEvents() {
   renderEvents(SEED_EVENTS);
 }
 
-function navLinks() {
-  return [...document.querySelectorAll('.nav-links a[href^="#"]')];
-}
-
-function navTargetId(link) {
-  return decodeURIComponent((link.getAttribute("href") || "").replace(/^#/, ""));
-}
-
-function setActiveNav(sectionId) {
-  navLinks().forEach((link) => {
-    const isActive = navTargetId(link) === sectionId;
-    link.classList.toggle("is-active", isActive);
-    if (isActive) {
-      link.setAttribute("aria-current", "location");
-    } else {
-      link.removeAttribute("aria-current");
-    }
-  });
-}
-
-function updateActiveNav(currentHash = window.location.hash) {
-  const sectionId = decodeURIComponent((currentHash || "").replace(/^#/, ""));
-  const navIds = new Set(navLinks().map(navTargetId));
-  if (!navIds.has(sectionId)) return "";
-  setActiveNav(sectionId);
-  return sectionId;
-}
-
-function initActiveNav() {
-  const sections = navLinks()
-    .map(navTargetId)
-    .map((sectionId) => document.getElementById(sectionId))
-    .filter(Boolean);
-  if (!sections.length) return;
-
-  window.addEventListener("hashchange", () => updateActiveNav());
-  updateActiveNav();
-
-  if (!("IntersectionObserver" in window)) return;
-
-  const visibleSections = new Map();
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          visibleSections.set(entry.target.id, entry.intersectionRatio);
-        } else {
-          visibleSections.delete(entry.target.id);
-        }
-      });
-      if (!visibleSections.size) return;
-      const [sectionId] = [...visibleSections.entries()].sort((a, b) => b[1] - a[1])[0];
-      setActiveNav(sectionId);
-    },
-    { rootMargin: "-18% 0px -58% 0px", threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
-  );
-
-  sections.forEach((section) => observer.observe(section));
-}
-
 function rerender() {
   applyTranslations();
   renderPlaces();
@@ -1620,6 +1560,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderSources();
   renderEvents(SEED_EVENTS);
   initMap();
-  initActiveNav();
   tryLoadLiveEvents();
 });
