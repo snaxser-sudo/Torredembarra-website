@@ -549,8 +549,8 @@ const PLACES = [
     i18n: {
       ru: { title: "Последний маяк Испании", desc: "Его включили в план морских сигналов 1985-1989, построили в 1999 году на Punta de la Galera.", fact: "С 1 января 2000 года это последний маяк, построенный в Испании в XX веке." },
       en: { title: "Lighthouse", desc: "The white tower on Punta de la Galera. The quickest way to read the coast.", fact: "In service since January 1, 2000, it anchors the south edge of the town map." },
-      es: { title: "Faro", desc: "La torre blanca en la Punta de la Galera. La forma más rápida de leer la costa.", fact: "Funciona desde el 1 de enero de 2000 y ancla el extremo sur del mapa local." },
-      ca: { title: "Far", desc: "La torre blanca a la Punta de la Galera. La manera més ràpida de llegir la costa.", fact: "Funciona des de l'1 de gener de 2000 i fixa el sud del mapa local." },
+      es: { title: "El último faro de España", desc: "Fue incluido en el plan de señales marítimas 1985-1989 y construido en 1999 en la Punta de la Galera.", fact: "Desde el 1 de enero de 2000 es el último faro construido en España en el siglo XX." },
+      ca: { title: "L'últim far d'Espanya", desc: "El van incloure en el pla de senyals marítims 1985-1989 i el van construir el 1999 a la Punta de la Galera.", fact: "Des de l'1 de gener de 2000 és l'últim far construït a Espanya al segle XX." },
     },
   },
   {
