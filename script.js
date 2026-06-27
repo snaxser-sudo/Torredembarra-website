@@ -547,7 +547,7 @@ const PLACES = [
     image: "https://esp.turismetorredembarra.cat/common/contenidos/fotos/original/torredembarra-129.jpg",
     coords: [41.1322, 1.394883],
     i18n: {
-      ru: { title: "Маяк", desc: "Белая башня на Punta de la Galera. Лучший ориентир, когда нужно быстро понять берег.", fact: "Работает с 1 января 2000 года и держит южный край городской карты." },
+      ru: { title: "Последний маяк Испании", desc: "Его включили в план морских сигналов 1985-1989, построили в 1999 году на Punta de la Galera.", fact: "С 1 января 2000 года это последний маяк, построенный в Испании в XX веке." },
       en: { title: "Lighthouse", desc: "The white tower on Punta de la Galera. The quickest way to read the coast.", fact: "In service since January 1, 2000, it anchors the south edge of the town map." },
       es: { title: "Faro", desc: "La torre blanca en la Punta de la Galera. La forma más rápida de leer la costa.", fact: "Funciona desde el 1 de enero de 2000 y ancla el extremo sur del mapa local." },
       ca: { title: "Far", desc: "La torre blanca a la Punta de la Galera. La manera més ràpida de llegir la costa.", fact: "Funciona des de l'1 de gener de 2000 i fixa el sud del mapa local." },
