@@ -1232,6 +1232,108 @@ function applyTranslations() {
   });
 }
 
+let activeNavId = "";
+let activeNavObserver;
+
+function navItems() {
+  return [...document.querySelectorAll('.nav-links a[href^="#"]')];
+}
+
+function navSectionId(link) {
+  return link.getAttribute("href").slice(1);
+}
+
+function navLinkFor(sectionId) {
+  return navItems().find((link) => navSectionId(link) === sectionId);
+}
+
+function centerActiveNavLink(link, smooth = true) {
+  const nav = link.closest(".nav-links");
+  if (!nav) return;
+
+  requestAnimationFrame(() => {
+    const target = link.offsetLeft + link.offsetWidth / 2 - nav.clientWidth / 2;
+    const maxLeft = Math.max(0, nav.scrollWidth - nav.clientWidth);
+    const left = Math.max(0, Math.min(target, maxLeft));
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const behavior = smooth && !reducedMotion ? "smooth" : "auto";
+
+    if (typeof nav.scrollTo === "function") {
+      nav.scrollTo({ left, behavior });
+    } else {
+      nav.scrollLeft = left;
+    }
+  });
+}
+
+function setActiveNav(sectionId, options = {}) {
+  if (!sectionId) return;
+  const links = navItems();
+  const currentLink = links.find((link) => navSectionId(link) === sectionId);
+  if (!currentLink) return;
+
+  const wasActive = activeNavId === sectionId;
+  activeNavId = sectionId;
+  links.forEach((link) => {
+    if (link === currentLink) {
+      link.setAttribute("aria-current", "location");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+
+  if (!wasActive || options.force) {
+    centerActiveNavLink(currentLink, options.smooth !== false);
+  }
+}
+
+function realignActiveNav(options = {}) {
+  const currentLink = navLinkFor(activeNavId);
+  if (currentLink) centerActiveNavLink(currentLink, options.smooth !== false);
+}
+
+function initActiveNav() {
+  const links = navItems();
+  const sections = links.map((link) => document.getElementById(navSectionId(link))).filter(Boolean);
+  if (!links.length || !sections.length) return;
+
+  const visibleSections = new Map();
+  const chooseVisibleSection = () => {
+    const visible = [...visibleSections.values()]
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top));
+    if (visible[0]) setActiveNav(visible[0].target.id, { smooth: true });
+  };
+
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      setActiveNav(navSectionId(link), { force: true, smooth: true });
+    });
+  });
+
+  window.addEventListener("hashchange", () => {
+    setActiveNav(window.location.hash.slice(1), { force: true, smooth: true });
+  });
+  window.addEventListener("resize", () => realignActiveNav({ smooth: false }), { passive: true });
+
+  if ("IntersectionObserver" in window) {
+    if (activeNavObserver) activeNavObserver.disconnect();
+    activeNavObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => visibleSections.set(entry.target.id, entry));
+        chooseVisibleSection();
+      },
+      {
+        rootMargin: "-38% 0px -52% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((section) => activeNavObserver.observe(section));
+  }
+
+  setActiveNav(window.location.hash.slice(1), { force: true, smooth: false });
+}
+
 function renderPlaces() {
   const grid = document.getElementById("placesGrid");
   grid.replaceChildren();
@@ -1533,6 +1635,7 @@ function rerender() {
   renderTorredembarrin();
   renderSources();
   renderEvents(SEED_EVENTS);
+  realignActiveNav({ smooth: false });
   tryLoadLiveEvents();
 }
 
@@ -1561,6 +1664,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTorredembarrin();
   renderSources();
   renderEvents(SEED_EVENTS);
+  initActiveNav();
   initMap();
   tryLoadLiveEvents();
 });
